@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Réinitialiser le mot de passe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url(/images/bg.jpg);
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+      }
+      form {
+        max-width: 400px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      p {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="resetForm">
+      <h2>Réinitialiser votre mot de passe</h2>
+      <div>
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="phone">Téléphone:</label>
+        <input type="text" id="phone" name="phone" required />
+      </div>
+      <div>
+        <label for="newPassword">Nouveau mot de passe:</label>
+        <input type="password" id="newPassword" name="newPassword" required />
+      </div>
+      <button type="submit">Réinitialiser le mot de passe</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+      document
+        .getElementById("resetForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const newPassword = document.getElementById("newPassword").value;
+          const message = document.getElementById("message");
+
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const user = users.find(
+            (user) =>
+              user.username === username &&
+              user.email === email &&
+              user.telephone === phone
+          );
+
+          if (user) {
+            user.password = newPassword;
+            localStorage.setItem("users", JSON.stringify(users));
+            message.textContent = "Mot de passe réinitialisé avec succès.";
+            message.style.color = "green";
+
+            setTimeout(() => {
+              window.location.href = "/inscri"; // Corrected redirection to the login page
+            }, 2000);
+          } else {
+            message.textContent = "Utilisateur non trouvé ou non inscrit.";
+            message.style.color = "red";
+          }
+        });
+    </script>
+  </body>
+</html>

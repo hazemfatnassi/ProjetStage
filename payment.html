@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/payment.css">
+</head>
+<body>
+  <div class="payment-container">
+    <h1>Payment</h1>
+    <form id="paymentForm">
+      <div class="form-group">
+        <label for="plan">Plan</label>
+        <input type="text" id="plan" name="plan" readonly>
+      </div>
+      <div class="form-group">
+        <label for="cardNumber">Numéro de carte</label>
+        <input type="text" id="cardNumber" name="cardNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="expiryDate">Date d'expiration</label>
+        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" required>
+      </div>
+      <div class="error-message" id="errorMessage" style="display: none"></div>
+      <button type="submit" class="submit-button" id="submitButton">Payer</button>
+    </form>
+  </div>
+
+  <div class="success-popup" id="successPopup">
+    <div class="checkmark">✔</div>
+    <p>Paiement réussi!</p>
+  </div>
+
+  <div class="error-popup" id="errorPopup">
+    <div class="crossmark">✖</div>
+    <p>Vous avez déjà un plan actif!</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const plan = urlParams.get("plan");
+      const planName = plan === "6mois" ? "Abonnement 6 mois" : "Abonnement 12 mois";
+      const planDuration = plan === "6mois" ? 6 : 12;
+      document.getElementById("plan").value = planName;
+
+      document.getElementById("paymentForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const cardNumber = document.getElementById("cardNumber").value;
+        const expiryDate = document.getElementById("expiryDate").value;
+        const cvv = document.getElementById("cvv").value;
+        const [month, year] = expiryDate.split("/").map(Number);
+        const errorMessage = document.getElementById("errorMessage");
+        const submitButton = document.getElementById("submitButton");
+
+        if (cardNumber.length !== 16) {
+          errorMessage.textContent = "Le numéro de carte doit contenir 16 chiffres.";
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 2000);
+          submitButton.disabled = true;
+          setTimeout(() => {
+            submitButton.disabled = false;
+          }, 2000);
+          return;
+        }
+
+        if (month < 1 || month > 12) {
+          errorMessage.textContent = "Le mois de la date d'expiration doit être entre 1 et 12.";
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 2000);
+          submitButton.disabled = true;
+          setTimeout(() => {
+            submitButton.disabled = false;
+          }, 2000);
+          return;
+        }
+
+        if (cvv.length !== 3) {
+          errorMessage.textContent = "Le code CVV doit contenir 3 chiffres.";
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 2000);
+          submitButton.disabled = true;
+          setTimeout(() => {
+            submitButton.disabled = false;
+          }, 2000);
+          return;
+        }
+
+        const currentUserId = localStorage.getItem("current_user_id");
+
+        try {
+          const response = await fetch(`http://localhost:3000/user/${currentUserId}`);
+          if (response.ok) {
+            const user = await response.json();
+
+            if (user.plan && new Date(user.planEndDate) > new Date()) {
+              const errorPopup = document.getElementById("errorPopup");
+              errorPopup.style.display = "block";
+              setTimeout(() => {
+                errorPopup.style.display = "none";
+              }, 3000);
+              return;
+            }
+
+            const endDate = new Date();
+            endDate.setMonth(endDate.getMonth() + planDuration);
+
+            const updatedUser = {
+              plan: planName,
+              planEndDate: endDate.toISOString().split("T")[0],
+              planHistory: [
+                ...user.planHistory,
+                {
+                  plan: planName,
+                  startDate: new Date().toISOString().split("T")[0],
+                  endDate: endDate.toISOString().split("T")[0],
+                },
+              ],
+            };
+
+            const updateResponse = await fetch(`http://localhost:3000/user/${currentUserId}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedUser),
+            });
+
+            if (updateResponse.ok) {
+              const successPopup = document.getElementById("successPopup");
+              successPopup.style.display = "block";
+              setTimeout(() => {
+                successPopup.style.display = "none";
+                window.location.href = "/profile";
+              }, 3000);
+            } else {
+              errorMessage.textContent = "Erreur lors de la mise à jour du plan.";
+              errorMessage.style.display = "block";
+              setTimeout(() => {
+                errorMessage.style.display = "none";
+              }, 2000);
+            }
+          } else {
+            errorMessage.textContent = "Erreur lors de la récupération des données utilisateur.";
+            errorMessage.style.display = "block";
+            setTimeout(() => {
+              errorMessage.style.display = "none";
+            }, 2000);
+          }
+        } catch (error) {
+          errorMessage.textContent = "Erreur de connexion au serveur.";
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 2000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

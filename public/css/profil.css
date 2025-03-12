@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .profile-box {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-box h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #007bff;
+  }
+  
+  .profile-box p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .profile-box p strong {
+    color: #333;
+  }
+  
+  .home-button, .edit-button, .toggle-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .home-button:hover, .edit-button:hover, .toggle-button:hover {
+    background-color: #ff9800;
+    transform: scale(1.05);
+  }
+  
+  .edit-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .edit-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .edit-form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .error-message {
+    color: #f44336;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+    transition: opacity 0.5s ease;
+  }
+  
+  .plan-history {
+    margin-top: 20px;
+  }
+  
+  .plan-history h4 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .plan-history ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .plan-history ul li {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+  }

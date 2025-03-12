@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  h1 {
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    border-left: 4px solid #ffd700;
+    padding-left: 10px;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .contact-form {
+    padding: 40px 0;
+  }
+  
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .form-group {
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1rem;
+    color: #333;
+    outline: none;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .captcha {
+    flex: 1 1 calc(50% - 20px);
+  }
+  
+  .captcha-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .captcha-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    font-style: italic;
+  }
+  
+  .submit-button {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1 1 100%;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #ff9800;
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 768px) {
+    form {
+      flex-direction: column;
+    }
+  
+    .form-group {
+      flex: 1 1 100%;
+    }
+  
+    .submit-button {
+      width: 100%;
+    }
+  }
+
+  .confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+  }
+
+  .confirmation-popup .checkmark {
+    font-size: 3rem;
+    color: #4CAF50;
+  }
+
+  .confirmation-popup p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }

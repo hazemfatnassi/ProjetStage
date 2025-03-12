@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil de l'utilisateur</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/profil.css" />
+  </head>
+  <body>
+    <div id="profileButton" class="profile-button" style="display: none">
+      <span id="profileInitial"></span>
+    </div>
+    <div id="authButtons" class="auth-buttons" style="display: none">
+      <button onclick="location.href='/compte'">Sign Up</button>
+      <button onclick="location.href='/inscri'">Login</button>
+    </div>
+    <div id="profileMenu" class="profile-menu">
+      <a href="/profile">Profil</a>
+      <button id="logoutBtn">Se déconnecter</button>
+    </div>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid justify-content-center">
+          <a class="navbar-brand" href="/">Force Gym</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="/espace">Nos Espaces</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/activite">Activités</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tarif">Tarifs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/planning">Planning</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="profile-box" id="profileBox">
+      <h3>Profil de l'utilisateur</h3>
+      <p>
+        <strong>Nom d'utilisateur:</strong> <span id="profileUsername"></span>
+      </p>
+      <p><strong>Nom:</strong> <span id="profileName"></span></p>
+      <p><strong>Téléphone:</strong> <span id="profileTelephone"></span></p>
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+      <p><strong>Adresse:</strong> <span id="profileAdress"></span></p>
+      <p><strong>Âge:</strong> <span id="profileAge"></span></p>
+      <p><strong>Plan:</strong> <span id="profilePlan"></span></p>
+      <p>
+        <strong>Date de fin du plan:</strong>
+        <span id="profilePlanEndDate"></span>
+      </p>
+      <button class="toggle-button" id="toggleHistoryButton">
+        Afficher l'historique des plans
+      </button>
+      <div id="planHistory" class="plan-history" style="display: none">
+        <h4>Historique des plans</h4>
+        <ul id="planHistoryList"></ul>
+      </div>
+      <button class="edit-button" id="editButton">Modifier</button>
+      <form id="editForm" class="edit-form">
+        <input
+          type="text"
+          id="editUsername"
+          placeholder="Nom d'utilisateur"
+          required
+        />
+        <input type="text" id="editName" placeholder="Nom" required />
+        <input
+          type="text"
+          id="editTelephone"
+          placeholder="Téléphone"
+          required
+        />
+        <input type="email" id="editEmail" placeholder="Email" required />
+        <input type="text" id="editAdress" placeholder="Adresse" required />
+        <input type="number" id="editAge" placeholder="Âge" required />
+        <input
+          type="password"
+          id="editPassword"
+          placeholder="Mot de passe actuel"
+          required
+        />
+        <button type="submit" class="edit-button">Enregistrer</button>
+      </form>
+      <div id="errorMessage" class="error-message" style="display: none"></div>
+    </div>
+    <button class="home-button" onclick="location.href='/'">Home</button>
+    <footer class="footer">
+      <div class="container">
+        <div class="contact">
+          <h3>Contactez Nous</h3>
+          <hr class="underline" />
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> Av .20 Mars 1956 Sidi
+              Alouane Mahdia
+            </li>
+            <li><i class="fas fa-phone"></i> Tél : 71 905 378</li>
+            <li><i class="fas fa-mobile-alt"></i> Mobile : 52 819 316</li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:contact@example.com">Contact</a>
+            </li>
+            <li><i class="fab fa-facebook"></i> <a href="#">Facebook</a></li>
+            <li><i class="fab fa-youtube"></i> <a href="#">YouTube</a></li>
+          </ul>
+        </div>
+        <div class="hours">
+          <div>
+            <h3>Horaires</h3>
+            <hr class="underline" />
+            <ul>
+              <li><i class="fas fa-clock"></i> Lundi : 06:30 – 21:30</li>
+              <li><i class="fas fa-clock"></i> Mardi : 06:30 – 21:30</li>
+              <li><i class="fas fa-clock"></i> Mercredi : 06:30 – 21:30</li>
+              <li><i class="fas fa-clock"></i> Jeudi : 06:30 – 21:30</li>
+              <li><i class="fas fa-clock"></i> Vendredi : 06:30 – 21:30</li>
+              <li><i class="fas fa-clock"></i> Samedi : 08:00 – 16:00</li>
+              <li><i class="fas fa-clock"></i> Dimanche : 08:00 – 16:00</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>Copyright © 2025 Force Gym. <span>Powered by Gym Connect</span></p>
+      </div>
+    </footer>
+    <script src="js/profil.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

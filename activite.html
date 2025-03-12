@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Cours Collectifs</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <style>
+    /* Styles généraux */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Section Les Cours Collectifs */
+.collective-courses {
+  margin: 50px 0;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Style des cours */
+.course-item {
+  display: flex;
+  gap: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fefefe;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.course-item:hover {
+  transform: translateX(10px);
+  background-color: #f0f0f0;
+}
+
+.course-image {
+  flex: 0 0 150px;
+}
+
+.course-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-content {
+  flex: 1;
+  padding: 10px;
+}
+
+.course-content h2 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.course-content p {
+  margin: 0;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .course-item {
+    flex-direction: column;
+  }
+
+  .course-image {
+    flex: 0 0 auto;
+  }
+}
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 30px 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.contact, .hours div {
+  flex: 1;
+}
+
+.contact h3, .hours h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.underline {
+  width: 50px;
+  height: 3px;
+  background-color: #ffc107;
+  margin: 10px 0;
+}
+
+.contact ul, .hours ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact ul li, .hours ul li {
+  margin: 10px 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact ul li i, .hours ul li i {
+  margin-right: 10px;
+  color: #ffc107;
+}
+
+.contact ul li a, .hours ul li a {
+  color: #ffc107;
+  text-decoration: none;
+}
+
+.contact ul li a:hover, .hours ul li a:hover {
+  text-decoration: underline;
+}
+
+.hours {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  color: #aaa;
+}
+
+.copyright span {
+  color: #ffc107;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+    padding: 15px 0;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+ </style>
+</head>
+<body>
+  <div id="profileButton" class="profile-button" style="display: none;">
+    <span id="profileInitial"></span>
+  </div>
+  <div id="authButtons" class="auth-buttons" style="display: none;">
+    <button onclick="location.href='/compte'">Sign Up</button>
+    <button onclick="location.href='/inscri'">Login</button>
+  </div>
+  <div id="profileMenu" class="profile-menu">
+    <a href="profile">Profil</a>
+    <button id="logoutBtn">Se déconnecter</button>
+  </div>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid justify-content-center">
+            <a class="navbar-brand" href="/">Force Gym</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/espace">Nos Espaces</a></li>
+                <li class="nav-item"><a class="nav-link" href="/activite">Activités</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tarif">Tarifs</a></li>
+                <li class="nav-item"><a class="nav-link" href="/planning">Planning</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+  <section class="collective-courses">
+    <div class="container">
+      <h1>Les Cours collectifs</h1>
+      <p>
+        Participez aux cours collectifs pour sculptez, renforcez et affinez votre corps! Se défouler avec un programme riche et varié chez Force Gym votre salle de sport et de fitness
+      </p>
+      <div class="courses-list">
+    
+      
+
+        <div class="course-item">
+          <div class="course-image">
+            <img src="/images/med.jpg" alt="Gym Médicale">
+          </div>
+          <div class="course-content">
+            <h2>Gym Médicale</h2>
+            <p>
+                La Gym Médicale regroupe des mouvements d'entretien articulaire et musculaire, associé à des étirements doux et à un travail sur la respiration. Le mal de dos peut se diminuer avec la gymnastique médicale ou aussi nommée école du dos. Vous vous préparez au sport ou vous voulez diminuer des maux de dos tels que le lumbago, la sciatique... les techniques de l'école du dos peuvent répondre à vos attentes.  
+            </p>
+          </div>
+        </div>
+
+        <div class="course-item">
+          <div class="course-image">
+            <img src="/images/circuit.jpg" alt="Circuit Minceur">
+          </div>
+          <div class="course-content">
+            <h2>Circuit minceur</h2>
+            <p>
+                Le circuit minceur est un cours de fitness construit autour d’ateliers cardio et de renforcement musculaire. Son objectif consiste à bruler les graisses et à modeler la silhouette grâce à des exercices ciblant certaines parties du corps.
+            </p>
+          </div>
+        </div>
+
+        <div class="course-item">
+          <div class="course-image">
+            <img src="/images/pilate.jpg" alt="Pilates">
+          </div>
+          <div class="course-content">
+            <h2>Pilate</h2>
+            <p>
+                La méthode Pilates, parfois simplement appelée Pilates, est un système d'exercices physique développé au début du xxe siècle par un passionné de sport et du corps humain, Joseph Pilates. La méthode Pilates est pratiquée au tapis avec ou sans accessoires ou à l'aide d'appareils. Elle a pour objectif le développement des muscles profonds, l'amélioration de la posture, l'équilibrage musculaire et l'assouplissement articulaire, pour un entretien, une amélioration ou une restauration des fonctions physiques.
+            </p>
+          </div>
+        </div>
+        <div class="course-item">
+            <div class="course-image">
+              <img src="/images/dance.png" alt="Pilates">
+            </div>
+            <div class="course-content">
+              <h2>Danse orientale</h2>
+              <p>
+                Apprenez la danse orientale et découvrez sa méthode pédagogique axée sur le placement du poids du corps et sur la structure imagée des mouvements. Une pédagogie qui permet d’apprendre la technique et les enchaînements de manière très accessible tout en développant le plaisir de la danse, la connaissance culturelle et l’épanouissement de chacun dans une ambiance conviviale et joyeuse.
+              </p>
+            </div>
+          </div>
+          <div class="course-item">
+            <div class="course-image">
+              <img src="/images/CoverYoga.jpg" alt="Pilates">
+            </div>
+            <div class="course-content">
+              <h2>YOGA</h2>
+              <p>
+                Le YOGA est une discipline originaire de l’Inde fondée sur un système qui permet de développer l’union et l’harmonie entre le corps, le mental et l’esprit. Résultats :<br> Améliore la force et la souplesse Bénéﬁces sur le corps et l’esprit Sensation de sérénité et de détente après le cours
+              </p>
+            </div>
+          </div>
+          <div class="course-item">
+            <div class="course-image">
+              <img src="/images/krav.jpg" alt="Pilates">
+            </div>
+            <div class="course-content">
+              <h2>Krav Maga</h2>
+              <p>
+                Le krav-maga, (combat rapproché), est une méthode d'autodéfense combinant des techniques provenant de la boxe, du muay-thaï, du judo, du ju-jitsu et de la lutte. Cette méthode, créé par Imi Lichtenfeld pour se défendre au corps à corps face aux assaillants. La méthode est utilisée par de nombreux services de police et forces militaires dans le monde tels qu'aux États-Unis le FBI, la DEA, les marines, en France le GIGN, le RAID, la Légion étrangère et au Royaume-Uni les SAS.
+              </p>
+            </div>
+          </div>
+          <div class="course-item">
+            <div class="course-image">
+              <img src="/images/airobic.jpg" alt="Pilates">
+            </div>
+            <div class="course-content">
+              <h2>Aerobic</h2>
+              <p>
+                Le cours Aerobic combine des mouvements de danse sur les derniers tubes du moment. Les chorégraphies sont simples, afin que tout le monde puisse participer. Au cours Aerobic, vous vous amuserez tout en améliorant votre forme. Avec un résultat rapide en brûlant un maximum de calories !
+              </p>
+            </div>
+          </div>
+          <div class="course-item">
+            <div class="course-image">
+              <img src="/images/abdo.jpg" alt="Pilates">
+            </div>
+            <div class="course-content">
+              <h2>Abdo Fessier</h2>
+              <p>
+                Les cours d’abdos fessiers sont très pratiqués dans les salles de fitness. Ils ont pour but de perdre du ventre et des fesses, pour obtenir des fesses toniques et un ventre plat.
+              </p>
+            </div>
+          </div>
+          <div class="course-item">
+            <div class="course-image">
+              <img src="/images/zumba.jpg" alt="Pilates">
+            </div>
+            <div class="course-content">
+              <h2> Zumba</h2>
+              <p>
+                Zumba est un mélange de danse et de fitness accessible à tous, composé de chorégraphies faciles à suivre et qui sculptent votre corps au son des derniers hits internationaux (Salsa, Reggaeton, Hip Hop, House, Dancehall…). Elle est pratiquée régulièrement par plus de 14 millions de personnes dans 185 pays !
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+
+      <div class="contact">
+        <h3>Contactez Nous</h3>
+        <hr class="underline">
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> Av .20 Mars 1956 Sidi Alouane Mahdia</li>
+          <li><i class="fas fa-phone"></i> Tél : 71 905 378</li>
+          <li><i class="fas fa-mobile-alt"></i> Mobile : 52 819 316</li>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:contact@example.com">Contact</a></li>
+          <li><i class="fab fa-facebook"></i> <a href="#">Facebook</a></li>
+          <li><i class="fab fa-youtube"></i> <a href="#">YouTube</a></li>
+        </ul>
+      </div>
+
+      <div class="hours">
+        <div>
+          <h3>Horaires </h3>
+          <hr class="underline">
+          <ul>
+            <li><i class="fas fa-clock"></i> Lundi : 06:30 – 21:30</li>
+            <li><i class="fas fa-clock"></i> Mardi : 06:30 – 21:30</li>
+            <li><i class="fas fa-clock"></i> Mercredi : 06:30 – 21:30</li>
+            <li><i class="fas fa-clock"></i> Jeudi : 06:30 – 21:30</li>
+            <li><i class="fas fa-clock"></i> Vendredi : 06:30 – 21:30</li>
+            <li><i class="fas fa-clock"></i> Samedi : 08:00 – 16:00</li>
+            <li><i class="fas fa-clock"></i> Dimanche : 08:00 – 16:00</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>Copyright © 2025 Force Gym. <span>Powered by Gym Connect</span></p>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const profileButton = document.getElementById('profileButton');
+      const profileInitial = document.getElementById('profileInitial');
+      const authButtons = document.getElementById('authButtons');
+      const profileMenu = document.getElementById('profileMenu');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const connected = localStorage.getItem('connected') === 'true';
+
+      if (connected) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const currentUserId = localStorage.getItem('current_user_id');
+        const user = users[currentUserId];
+
+        if (user) {
+          profileInitial.textContent = user.username.charAt(0).toUpperCase();
+        }
+
+        profileButton.style.display = 'flex';
+        authButtons.style.display = 'none';
+      } else {
+        profileButton.style.display = 'none';
+        authButtons.style.display = 'flex';
+      }
+
+      profileButton.addEventListener('click', function() {
+        profileMenu.style.display = profileMenu.style.display === 'none' ? 'flex' : 'none';
+      });
+
+      logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('current_user_id');
+        localStorage.setItem('connected', 'false');
+        window.location.href = '/';
+      });
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

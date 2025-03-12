@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Créer un compte</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-image: url(/images/bg.jpg);
+        background-size: cover;
+        background-position: center;
+      }
+      .box {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px;
+        width: 100%;
+        background-color: #ffc107;
+        color: #000;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:disabled {
+        background-color: #aaa;
+      }
+      button:hover:not(:disabled) {
+        background-color: #ff9800;
+      }
+      .success-message {
+        color: green;
+        margin-top: 15px;
+        text-align: center;
+      }
+      .error-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        z-index: 1000;
+        display: none;
+      }
+      .error-popup .crossmark {
+        font-size: 3rem;
+        color: #f44336;
+      }
+      .error-popup p {
+        font-size: 1.2rem;
+        margin-top: 10px;
+      }
+      .home-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: transparent;
+        border: none;
+        font-size: 1rem;
+        color: #000;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="custom-login">
+      <div class="box">
+        <form id="profileForm">
+          <h3>Créer un compte:</h3>
+          <input
+            type="text"
+            id="username"
+            placeholder="Nom d'utilisateur"
+            required
+          />
+          <input type="text" id="name" placeholder="Nom" required />
+          <input type="text" id="telephone" placeholder="Téléphone" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <input type="text" id="adress" placeholder="Adresse" required />
+          <input type="number" id="age" placeholder="Age" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Mot de passe"
+            required
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirmez le mot de passe"
+            required
+          />
+          <button type="submit">Créer un compte</button>
+        </form>
+        <div id="successMessage" class="success-message" style="display: none">
+          Compte créé avec succès! Vous serez redirigé vers la page de
+          connexion.
+        </div>
+      </div>
+    </div>
+
+    <div class="error-popup" id="errorPopup">
+      <div class="crossmark">✖</div>
+      <p id="errorMessage">Les mots de passe ne correspondent pas.</p>
+    </div>
+
+    <button class="home-button" onclick="location.href='/'">home</button>
+
+    <script>
+      document
+        .getElementById("profileForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const name = document.getElementById("name").value;
+          const telephone = document.getElementById("telephone").value;
+          const email = document.getElementById("email").value;
+          const adress = document.getElementById("adress").value;
+          const age = document.getElementById("age").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+          const errorMessage = document.getElementById("errorMessage");
+          const errorPopup = document.getElementById("errorPopup");
+
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (telephone.length !== 8) {
+            errorMessage.textContent =
+              "Le numéro de téléphone doit contenir 8 chiffres.";
+            errorPopup.style.display = "block";
+            setTimeout(() => {
+              errorPopup.style.display = "none";
+            }, 2000);
+            return;
+          }
+
+          if (!emailPattern.test(email)) {
+            errorMessage.textContent = "L'adresse email n'est pas valide.";
+            errorPopup.style.display = "block";
+            setTimeout(() => {
+              errorPopup.style.display = "none";
+            }, 2000);
+            return;
+          }
+
+          if (password.length < 8) {
+            errorMessage.textContent =
+              "Le mot de passe doit contenir au moins 8 caractères.";
+            errorPopup.style.display = "block";
+            setTimeout(() => {
+              errorPopup.style.display = "none";
+            }, 2000);
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            errorMessage.textContent =
+              "Les mots de passe ne correspondent pas.";
+            errorPopup.style.display = "block";
+            setTimeout(() => {
+              errorPopup.style.display = "none";
+            }, 2000);
+            return;
+          }
+
+          const newUser = {
+            username,
+            name,
+            telephone,
+            email,
+            adress,
+            age,
+            password,
+          };
+
+          try {
+            const response = await fetch("http://localhost:3000/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newUser),
+            });
+
+            if (response.ok) {
+              document.getElementById("successMessage").style.display = "block";
+              setTimeout(() => {
+                window.location.href = "/inscri";
+              }, 2000);
+            } else {
+              const data = await response.json();
+              errorMessage.textContent = data.message;
+              errorPopup.style.display = "block";
+              setTimeout(() => {
+                errorPopup.style.display = "none";
+              }, 2000);
+            }
+          } catch (error) {
+            errorMessage.textContent = "Erreur de connexion au serveur.";
+            errorPopup.style.display = "block";
+            setTimeout(() => {
+              errorPopup.style.display = "none";
+            }, 2000);
+          }
+        });
+    </script>
+  </body>
+</html>

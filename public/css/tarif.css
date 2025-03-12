@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin: 20px 0;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Tarifs */
+.pricing {
+  margin: 50px 0;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.card .access {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card .price {
+  font-size: 2rem;
+  margin: 10px 0;
+  color: #ff9800;
+}
+
+.card .price span {
+  font-size: 1rem;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.card ul li {
+  margin-bottom: 10px;
+}
+
+.card .details {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.card .subscribe-button {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.card .subscribe-button:hover {
+  background-color: #ff9800;
+  transform: scale(1.05);
+}
+
+.card .subscribe-button a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .pricing-cards {
+    flex-direction: column;
+  }
+}
+
+.error-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  z-index: 1000;
+  display: none;
+}
+
+.error-popup .crossmark {
+  font-size: 3rem;
+  color: #f44336;
+}
+
+.error-popup p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
